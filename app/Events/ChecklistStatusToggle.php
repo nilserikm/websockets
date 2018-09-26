@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -14,14 +15,19 @@ class ChecklistStatusToggle implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
+    public $checked;
+
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param User $user
+     * @param bool $checked
      */
-    public function __construct()
+    public function __construct(User $user, $checked)
     {
-        //
+        $this->user = $user;
+        $this->bool = $checked;
     }
 
     /**
@@ -31,6 +37,6 @@ class ChecklistStatusToggle implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('checklist');
     }
 }
