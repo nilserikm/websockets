@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Checklist;
 use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -16,18 +17,18 @@ class ChecklistStatusToggle implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
-    public $checked;
+    public $checklist;
 
     /**
      * Create a new event instance.
      *
      * @param User $user
-     * @param bool $checked
+     * @param Checklist $checklist
      */
-    public function __construct(User $user, $checked)
+    public function __construct(User $user, Checklist $checklist)
     {
         $this->user = $user;
-        $this->bool = $checked;
+        $this->checklist = $checklist;
     }
 
     /**
